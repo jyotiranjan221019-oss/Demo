@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday 💖</title>
+
+<style>
+body{
+    margin:0;
+    overflow:hidden;
+    font-family:'Segoe UI';
+    background:black;
+    color:white;
+    text-align:center;
+}
+
+/* WhatsApp Chat */
+#chat{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:#0b141a;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:20px;
+}
+
+.msg{
+    background:#25d366;
+    color:black;
+    padding:10px;
+    border-radius:10px;
+    margin:5px;
+    width:max-content;
+}
+
+/* Start button */
+#startBtn{
+    position:absolute;
+    top:40%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    padding:15px 30px;
+    font-size:20px;
+    display:none;
+}
+
+/* Main */
+#main{display:none;}
+
+/* Gift */
+.gift{
+    font-size:120px;
+    cursor:pointer;
+    animation:bounce 1s infinite;
+}
+
+@keyframes bounce{
+    50%{transform:translateY(-20px);}
+}
+
+/* Cake */
+.cake{
+    font-size:150px;
+    display:none;
+    cursor:pointer;
+}
+
+/* Image */
+img{
+    width:260px;
+    border-radius:20px;
+    margin-top:20px;
+    transition:1s;
+}
+
+/* Hearts */
+.heart{
+    position:absolute;
+    color:pink;
+    animation:float 6s linear infinite;
+}
+
+@keyframes float{
+    from{transform:translateY(100vh);}
+    to{transform:translateY(-10vh);}
+}
+
+/* Fireworks */
+.fire{
+    position:absolute;
+    width:6px;
+    height:6px;
+    background:white;
+    border-radius:50%;
+    animation:boom 1s ease-out;
+}
+
+@keyframes boom{
+    to{transform:scale(15);opacity:0;}
+}
+
+/* Final message */
+#final{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:linear-gradient(#ff758c,#ff7eb3);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+</style>
+</head>
+
+<body>
+
+
+
+<!-- CHAT INTRO -->
+<div id="chat"></div>
+
+<button id="startBtn" onclick="start()">Open Surprise 💖</button>
+
+<!-- MAIN -->
+<div id="main">
+    <h1 id="title"></h1>
+    <div class="gift" onclick="openGift()">Open Gift🎁</div>
+
+    <div id="content" style="display:none;">
+        <div class="cake" onclick="cutCake()">Cut Cake🎂</div>
+        <h2 id="wish"></h2>
+        <img id="slide" src="ChatGPT Image Mar 14, 2026, 08_37_16 PM.png">
+    </div>
+</div>
+
+<!-- FINAL SCREEN -->
+<div id="final">
+    <h1>💖 You Are Special 💖</h1>
+    <p>Thank you for being part of our life ✨</p>
+</div>
+
+<script>
+
+// CHAT MESSAGES
+let messages=[
+"Hi Bhauja 😊",
+"Today is special...",
+"Wait for something...",
+"I made something for you 💖"
+];
+
+let i=0;
+function chat(){
+    if(i<messages.length){
+        let m=document.createElement("div");
+        m.className="msg";
+        m.innerHTML=messages[i];
+        document.getElementById("chat").appendChild(m);
+        i++;
+        setTimeout(chat,1500);
+    }else{
+        document.getElementById("startBtn").style.display="block";
+    }
+}
+chat();
+
+// START
+function start(){
+    document.getElementById("chat").style.display="none";
+    document.getElementById("startBtn").style.display="none";
+    document.getElementById("main").style.display="block";
+    document.getElementById("music").play();
+    type();
+    fireworks();
+}
+
+// TYPING
+let txt="🎉 Happy Birthday My Lovely Bhauja 💖";
+let j=0;
+function type(){
+    if(j<txt.length){
+        document.getElementById("title").innerHTML+=txt[j];
+        j++;
+        setTimeout(type,80);
+    }
+}
+
+// OPEN GIFT
+function openGift(){
+    document.querySelector(".gift").style.display="none";
+    document.getElementById("content").style.display="block";
+    document.querySelector(".cake").style.display="block";
+    hearts();
+    slideShow();
+}
+
+// CAKE CUT
+function cutCake(){
+    document.querySelector(".cake").innerHTML="🍰";
+    document.getElementById("wish").innerHTML="Enjoy your day 💖";
+    setTimeout(()=>{
+        document.getElementById("main").style.display="none";
+        document.getElementById("final").style.display="flex";
+    },3000);
+}
+
+// HEARTS
+function hearts(){
+    setInterval(()=>{
+        let h=document.createElement("div");
+        h.className="heart";
+        h.innerHTML="💖 Bhauja";
+        h.style.left=Math.random()*100+"vw";
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),6000);
+    },300);
+}
+
+// FIREWORKS
+function fireworks(){
+    setInterval(()=>{
+        let f=document.createElement("div");
+        f.className="fire";
+        f.style.left=Math.random()*100+"vw";
+        f.style.top=Math.random()*100+"vh";
+        document.body.appendChild(f);
+        setTimeout(()=>f.remove(),1000);
+    },200);
+}
+
+// SLIDESHOW
+let imgs=["WhatsApp Image 2026-03-18 at 11.16.01 PM.jpeg","WhatsApp Image 2026-03-18 at 11.16.23 PM.jpeg","WhatsApp Image 2026-03-18 at 11.16.45 PM.jpeg"];
+let k=0;
+function slideShow(){
+    setInterval(()=>{
+        k=(k+1)%imgs.length;
+        document.getElementById("slide").src=imgs[k];
+    },2000);
+}
+
+</script>
+
+</body>
+</html>
